@@ -37,11 +37,11 @@ Este repositorio es **interactivo**: a medida que completas cada actividad, GitH
 
 ## Estructura del workshop
 
-| Sesión | Día | Tema | Actividad |
-|---|---|---|---|
-| 1 | Lunes | ¿Qué es GitHub Actions? | Crear tu primer workflow con `workflow_dispatch` |
-| 2 | Miércoles | Anatomía de un workflow | Disparar el workflow con `push`, agregar `checkout` y un script |
-| 3 | Viernes | Events y triggers | Agregar `pull_request` y `schedule`, abrir un Pull Request real |
+| Sesión | Tema | Actividad |
+|---|---|---|
+| 1 | ¿Qué es GitHub Actions? | Crear tu primer workflow con `workflow_dispatch` |
+| 2 | Anatomía de un workflow | Disparar el workflow con `push`, agregar `checkout` y un script |
+| 3 | Events y triggers | Agregar `pull_request` y `schedule`, abrir un Pull Request real |
 
 ## Cómo funciona por dentro
 
