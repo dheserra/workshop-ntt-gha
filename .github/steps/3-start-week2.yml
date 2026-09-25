@@ -1,0 +1,49 @@
+# Arranca la Semana 2. Se corre manualmente después de terminar la Semana 1.
+# Crea un nuevo Issue de seguimiento independiente, con el contenido de la Sesión 4.
+
+name: "Workshop 🚀 - Iniciar Semana 2"
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  start_week2:
+    name: Crear el issue de seguimiento de la Semana 2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Buscar issue de seguimiento existente
+        id: find_issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          NUMBER=$(gh issue list \
+            --search "\"Mi progreso: GitHub Actions Semana 2\" in:title" \
+            --state open \
+            --json number \
+            --jq '.[0].number // empty')
+          echo "number=$NUMBER" >> "$GITHUB_OUTPUT"
+
+      - name: Crear issue con el contenido del Paso 1
+        if: steps.find_issue.outputs.number == ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue create \
+            --title "Mi progreso: GitHub Actions Semana 2 · Paso 1" \
+            --body-file .github/steps/3-welcome-week2.md
+
+      - name: Recordatorio si ya existía un issue en curso
+        if: steps.find_issue.outputs.number != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          NUMBER: ${{ steps.find_issue.outputs.number }}
+        run: |
+          gh issue comment "$NUMBER" \
+            --body "👋 Ya tienes la Semana 2 en progreso. Sigue las instrucciones más arriba en este mismo issue."
